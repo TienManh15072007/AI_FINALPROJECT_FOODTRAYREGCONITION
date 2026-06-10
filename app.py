@@ -336,4 +336,4 @@ elif page == "EXECUTE.VISION()":
             if st.button("EXECUTE.TRANSACTION()", use_container_width=True, type="primary"):
                 st.toast("TRANSACTION_LOGGED_TO_BLOCKCHAIN")
     else:
-        st.markdown("<p style='text-align:center; color:#FF003C; font-size:1.2rem; font-weight:bold;'>[ WAITING FOR DATA UP
+        st.markdown("<p style='text-align:center; color:#FF003C; font-size:1.2rem; font-weight:bold;'>[ WAITING FOR DATA UPLOAD ]</p>", unsafe_allow_html=True)
