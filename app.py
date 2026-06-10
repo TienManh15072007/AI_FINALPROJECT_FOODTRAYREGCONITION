@@ -380,25 +380,25 @@ elif page == "Góc Ẩm Thực AI":
             "name": "Thịt kho tàu (Thịt kho trứng)", 
             "desc": "Thịt ba chỉ vuông vức kho r rục cùng hột vịt, nước kho dừa màu cánh gián đậm đà đưa cơm.", 
             "appeal": "⭐⭐⭐⭐⭐ (Khó cưỡng)",
-            "image": "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "image": "https://cdn.nguyenkimmall.com/images/companies/_1/tin-tuc/kinh-nghiem-meo-hay/n%E1%BA%A5u%20%C4%83n/thit-kho-tau-voi-trung-thom-ngon.jpg"
         },
         {
-            "name": "Cá hú kho tộ", 
-            "desc": "Khúc cá hú béo ngậy được kho kẹo trong tộ đất với tóp mỡ, hành lá và tiêu sọ cay nồng.", 
+            "name": "Cá kho", 
+            "desc": "Khúc cá kho ngậy được kho kẹo trong tộ đất với tóp mỡ, hành lá và tiêu sọ cay nồng.", 
             "appeal": "⭐⭐⭐⭐ (Đậm đà dân dã)",
-            "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "image": "https://i.ytimg.com/vi/BfD1KwGwkqA/maxresdefault.jpg"
         },
         {
-            "name": "Trứng chiên hành kiểu quán cơm", 
+            "name": "Trứng chiên", 
             "desc": "Trứng vịt đánh bông chiên dày hành thơm phức, ngoài rìa xém giòn, bên trong mềm xốp.", 
             "appeal": "⭐⭐⭐ (Nhanh gọn, bắt miệng)",
-            "image": "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "image": "https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_10_18_638332629116893732_thiet-ke-chua-co-ten-3.jpg"
         },
         {
-            "name": "Canh chua dọc mùng Nam Bộ", 
-            "desc": "Nước canh chua thanh nhẹ từ me, nấu kèm dọc mùng (bạc hà), đậu bắp, cà chua và giá đỗ chuẩn vị cơm bình dân.", 
+            "name": "Canh chua", 
+            "desc": "Nước canh chua thanh nhẹ từ me, nấu kèm đậu bắp, cà chua và giá đỗ chuẩn vị cơm bình dân.", 
             "appeal": "⭐⭐⭐⭐ (Giải nhiệt sảng khoái)",
-            "image": "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "image": "https://www.cooking-therapy.com/wp-content/uploads/2020/12/Canh-Chua-13.jpg"
         }
     ]
 
