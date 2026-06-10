@@ -67,7 +67,7 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 @st.cache_resource
 def init_model():
     model_path = "canteen_model_STAGE1.keras"
-    model_url = "https://github.com/TienManh15072007/Ten-Repo-Cua-Ban/releases/download/v1.0/canteen_model_STAGE1.keras"
+    model_url = "https://github.com/TienManh15072007/AI_FINALPROJECT_FOODTRAYREGCONITION/releases/download/model.py/canteen_model_STAGE1.keras"
     
     if not os.path.exists(model_path):
         with st.spinner("⏳ Hệ thống đang tải Model AI từ server (Chỉ tải lần đầu tiên, vui lòng đợi)..."):
