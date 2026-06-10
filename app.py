@@ -109,113 +109,66 @@ if page == "Trang Chủ (Giới thiệu)":
     html, body, [class*="css"] {
         font-family: 'Montserrat', sans-serif;
     }
-    <style>
-
-/* =========================
-   NỀN CHÍNH TOÀN APP
-   ========================= */
-    html, body, [data-testid="stAppViewContainer"], .stApp {
-    background: #3D0B0A !important;
-    color: #F5E6C8;
+    .stApp {
+    background-color: #3D0B0A; /* Nền đỏ sẫm trầm, giống phần trên của ảnh */
 }
-
-/* Container chính */
-    .main .block-container {
-    background: transparent !important;
-    padding-top: 2rem;
-    padding-left: 3rem;
-    padding-right: 3rem;
+    .st-emotion-cache-1jicfl2 {
+    padding: 2rem 3rem;
 }
-
-/* Sidebar */
-    [data-testid="stSidebar"] {
-    background: #2B0808 !important;
-}
-
-/* =========================
-   STEP BANNER
-   ========================= */
     .step-banner {
-    background: linear-gradient(135deg, #B22222 0%, #D4AF37 100%);
+    background: linear-gradient(135deg, #B22222 0%, #D4AF37 100%); /* Đỏ sắt rỉ sang Vàng đồng */
+
     padding: 12px 20px;
     border-radius: 8px;
     font-weight: 700;
     font-size: 1.2rem;
     margin-bottom: 15px;
     margin-top: 25px;
-    box-shadow: 0 4px 6px rgba(178,34,34,0.2);
+    box-shadow: 0 4px 6px rgba(178, 34, 34, 0.2); /* Bóng màu đỏ sắt rỉ */
     display: flex;
     align-items: center;
     gap: 10px;
-    color: white;
 }
-
-/* =========================
-   FILE UPLOADER
-   ========================= */
     [data-testid="stFileUploadDropzone"] {
-    background-color: #FFFFFF !important;
-    border: 2px dashed #B22222 !important;
+    background-color: #ffffff !important;
+    border: 2px dashed #B22222 !important; /* Viền màu đỏ sắt rỉ */
     border-radius: 12px !important;
 }
-
     [data-testid="stFileUploadDropzone"] div {
-    color: #D4AF37 !important;
+    color: #D4AF37 !important; /* Văn bản màu vàng đồng */
 }
-
-/* =========================
-   RADIO BUTTON
-   ========================= */
-    .stRadio label,
-    .stRadio p {
+    .stRadio label, .stRadio p {
     font-weight: 600 !important;
-    color: #D4AF37 !important;
+    color: #D4AF37 !important; /* Văn bản màu vàng đồng */
 }
-
-/* =========================
-   RECEIPT
-   ========================= */
     .receipt-container {
-    background-color: #FDE6A6;
-    border: 2px dashed #B22222;
+    background-color: #FDE6A6; /* Nền vàng đồng nhạt hơn, để văn bản dễ đọc */
+    border: 2px dashed #B22222; /* Viền màu đỏ sắt rỉ */
     border-radius: 10px;
     padding: 5px;
     box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
 }
-
-/* =========================
-   TIÊU ĐỀ
-   ========================= */
     h1 {
-    color: #D4AF37 !important;
+    color: #D4AF37 !important; /* Tiêu đề màu vàng đồng */
     text-align: center;
     font-weight: 800 !important;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-
     .subtitle-text {
     text-align: center;
     font-size: 1.1rem;
-    color: #D4AF37;
+    color: #D4AF37; /* Văn bản phụ màu vàng đồng */
     margin-bottom: 30px;
 }
-
     .food-label {
     text-align: center;
     font-weight: 700;
-    color: #D4AF37;
+    color: #D4AF37; /* Nhãn màu vàng đồng */
     margin-top: 10px;
     margin-bottom: 5px;
     font-size: 1.1rem;
-}
-
-/* =========================
-   TEXT MẶC ĐỊNH
-   ========================= */
-    p, span, label, div {
-    color: #F5E6C8;
-}
+}. hãy sửa và đưa tôi code hoàn chỉnh sau khi sửa
 
 </style>
     """
