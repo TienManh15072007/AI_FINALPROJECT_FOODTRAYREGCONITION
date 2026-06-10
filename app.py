@@ -324,4 +324,4 @@ elif page == "Hệ Thống Nhận Diện":
                 st.toast("✅ Giao dịch thành công! Đã lưu vào hệ thống.")
                 st.balloons()
     else:
-        st.info("👋 Chào mừng đến với khu vực Thu Ngân! Vui lòng tải ảnh khay ăn lên hệ thống để bắt đầu quét tự động."). đây là đoạn code hoàn chỉnh rồểu chưa có gì là sáng tạo đột biến ở đây, chưa có gì high tech creative á bạn tư duy cách nào để bổ sung cho nó độc đáo hơn nữa không
+        st.info("👋 Chào mừng đến với khu vực Thu Ngân! Vui lòng tải ảnh khay ăn lên hệ thống để bắt đầu quét tự động.")
