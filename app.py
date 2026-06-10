@@ -395,4 +395,4 @@ elif page == "Hệ Thống Nhận Diện":
         with col_console:
             st.markdown("<div class='step-banner'>🤖 AI CO-PILOT CONSOLE</div>", unsafe_allow_html=True)
             st.info("\n".join(ai_messages))
-TÔI ĐÃ GHI NHẬN TOÀN BỘ CODE NÀY NHÉ
+
