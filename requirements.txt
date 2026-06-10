@@ -1,8 +1,6 @@
 streamlit
-tensorflow-cpu==2.15.0
-numpy
+tensorflow
 opencv-python-headless
-scikit-learn
-split-folders
-requests
+numpy
 Pillow
+requests
