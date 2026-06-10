@@ -1,0 +1,179 @@
+import streamlit as st
+from PIL import Image
+import numpy as np
+
+# Import các module đã xây dựng (GIỮ NGUYÊN GỐC)
+import config
+from image_processor import TrayProcessor
+from model import FoodClassifier
+from billing import BillingSystem
+
+# 1. CẤU HÌNH GIAO DIỆN TRANG WEB
+st.set_page_config(
+    page_title="Hệ Thống Thanh Toán Khay Cơm AI", 
+    page_icon="🍲", 
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# 2. CHÈN CSS CUSTOM (GIAO DIỆN HIỆN ĐẠI & BACKGROUND ẨM THỰC VN)
+# Sử dụng ảnh background từ Unsplash mang vibe ẩm thực châu Á/Việt Nam
+# Lớp overlay rgba(253, 246, 237, 0.9) tạo tone màu kem ấm áp, chuẩn F&B
+page_bg_img = """
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+
+html, body, [class*="css"] {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.stApp {
+    background-image: url("https://images.unsplash.com/photo-1555126634-323283e090fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Lớp phủ mờ (overlay) để làm nổi bật nội dung */
+.stApp::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(253, 246, 237, 0.92); /* Tone màu kem/cam sữa ấm áp */
+    z-index: -1;
+}
+
+/* Tùy chỉnh các khối chứa (containers) để có hiệu ứng thẻ bài (card) hiện đại */
+div[data-testid="stVerticalBlock"] > div[style*="flex-direction: column;"] {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+/* Tùy chỉnh tiêu đề chính */
+h1 {
+    color: #D35400 !important; /* Tone cam cháy */
+    text-align: center;
+    font-weight: 800 !important;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+    color: #8E44AD !important; /* Tone tím đậm tạo điểm nhấn */
+}
+</style>
+"""
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
+# 3. HÀM KHỞI TẠO (GIỮ NGUYÊN GỐC)
+@st.cache_resource
+def init_model():
+    return FoodClassifier()
+
+classifier = init_model()
+processor = TrayProcessor()
+billing = BillingSystem()
+
+# 4. HEADER GIAO DIỆN
+st.title("🍲 HỆ THỐNG NHẬN DIỆN & THANH TOÁN KHAY CƠM AI")
+st.markdown("<p style='text-align: center; font-size: 1.2rem; color: #555;'>Giải pháp ứng dụng <b>Computer Vision & EfficientNetB0</b> tối ưu hóa quy trình Canteen</p>", unsafe_allow_html=True)
+st.write("---")
+
+# 5. KHU VỰC THAO TÁC CHÍNH
+col_input, col_preview = st.columns([1.2, 1], gap="large")
+
+with col_input:
+    st.markdown("### 📸 1. Tải Ảnh Khay Cơm")
+    uploaded_file = st.file_uploader("Kéo thả hoặc chọn ảnh từ thiết bị (jpg, png)...", type=["jpg", "jpeg", "png"])
+    
+    st.markdown("### 🔄 2. Tùy Chỉnh Hướng (Tùy chọn)")
+    rotation_mode = st.radio(
+        "AI sẽ tự động căn lề. Bạn có thể can thiệp thủ công nếu cần:",
+        ("Tự động chỉnh hướng", "Giữ nguyên (0°)", "Xoay 90° theo chiều KĐH (CW)", "Xoay 90° ngược chiều KĐH (CCW)", "Xoay 180°"),
+        horizontal=True
+    )
+
+if uploaded_file is not None:
+    # Xử lý ảnh đầu vào
+    image = Image.open(uploaded_file)
+    img_array = np.array(image)
+
+    with col_preview:
+        st.markdown("### 🎯 Kết Quả Căn Lề Chuẩn")
+        with st.spinner("⏳ AI đang tự động phân tích và căn chỉnh..."):
+            # Logic xoay ảnh (GIỮ NGUYÊN GỐC)
+            if rotation_mode == "Tự động chỉnh hướng":
+                img_aligned = processor.auto_align_tray(img_array)
+            elif rotation_mode != "Giữ nguyên (0°)":
+                img_aligned = processor.manual_rotate(img_array, rotation_mode)
+            else:
+                img_aligned = img_array
+            
+            st.image(img_aligned, use_container_width=True, caption="Ảnh đã được tối ưu hóa góc nhìn")
+
+    st.write("---")
+    
+    # Khu vực hiển thị kết quả tách món
+    st.markdown("### 🍱 3. Phân Tích & Nhận Diện Từng Ngăn")
+    
+    # Logic cắt 5 ngăn (GIỮ NGUYÊN GỐC)
+    regions = processor.crop_regions(img_aligned)
+    predictions_for_billing = {} 
+    
+    # Layout 5 cột hiện đại
+    cols = st.columns(5)
+    
+    for idx, (region_name, region_img) in enumerate(regions.items()):
+        with cols[idx]:
+            # Đưa qua mô hình dự đoán (GIỮ NGUYÊN GỐC)
+            food_name, confidence = classifier.predict_region(region_img)
+            predictions_for_billing[region_name] = food_name
+            
+            # Hiển thị ảnh của ngăn
+            st.image(region_img, use_container_width=True)
+            st.markdown(f"<p style='text-align: center; font-weight: bold; margin-bottom: 5px;'>Ngăn {region_name}</p>", unsafe_allow_html=True)
+            
+            # Box hiển thị kết quả màu sắc rực rỡ hơn
+            if food_name == "Khay inox (Trống)":
+                st.info(f"⚪ Trống \n\n {confidence:.1f}%")
+            elif confidence > 65:
+                st.success(f"✅ {food_name} \n\n {confidence:.1f}%")
+            else:
+                st.warning(f"⚠️ {food_name}? \n\n {confidence:.1f}%")
+
+    st.write("---")
+    
+    # Khu vực Hóa Đơn
+    st.markdown("### 🧾 4. Hóa Đơn Thanh Toán")
+    
+    # Logic tính tiền (GIỮ NGUYÊN GỐC)
+    total_bill, receipt_lines = billing.generate_receipt(predictions_for_billing)
+    
+    bill_col1, bill_col2 = st.columns([2, 1.5])
+    
+    with bill_col1:
+        # Sử dụng text area hoặc st.info để hóa đơn trông giống một tờ bill thật
+        bill_text = "\n".join(receipt_lines)
+        st.text_area("Chi tiết từng món (Bảng giá tham chiếu):", value=bill_text, height=180, disabled=True)
+        
+    with bill_col2:
+        # Box tổng tiền nổi bật
+        st.markdown(
+            f"""
+            <div style="background-color: #27AE60; padding: 30px; border-radius: 15px; text-align: center; color: white; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);">
+                <h3 style="color: white !important; margin-top: 0;">TỔNG THANH TOÁN</h3>
+                <h1 style="color: white !important; font-size: 3rem; margin-bottom: 0;">{total_bill:,} ₫</h1>
+            </div>
+            """, 
+            unsafe_allow_html=True
+        )
+        if st.button("🖨️ In Hóa Đơn / Khách Mới", use_container_width=True, type="primary"):
+            st.toast("✅ Đã ghi nhận thanh toán thành công!")
+            st.balloons()
+else:
+    # Trạng thái chờ khi chưa upload ảnh
+    st.info("👋 Xin chào! Vui lòng tải lên một bức ảnh khay cơm ở mục số 1 để hệ thống bắt đầu làm việc.")
