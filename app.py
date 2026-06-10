@@ -395,3 +395,32 @@ elif page == "Hệ Thống Nhận Diện":
         with col_console:
             st.markdown("<div class='step-banner'>🤖 AI CO-PILOT CONSOLE</div>", unsafe_allow_html=True)
             st.info("\n".join(ai_messages))
+# ------------------------------------------
+# TRANG 3: GÓC ẨM THỰC AI
+# ------------------------------------------
+elif page == "Góc Ẩm Thực AI":
+    st.markdown("<h1>✨ GÓC GỢI Ý MÓN NGON TỪ AI</h1>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center;'>Để AI giúp bạn chọn một bữa ăn đầy đủ dinh dưỡng và hấp dẫn nhất hôm nay!</p>", unsafe_allow_html=True)
+    st.write("---")
+
+    # Dữ liệu gợi ý món ăn
+    suggestions = [
+        {"name": "Sườn nướng", "desc": "Sườn nướng mật ong thơm phức, thịt mềm tan trong miệng.", "appeal": "⭐⭐⭐⭐⭐ (Siêu hấp dẫn)"},
+        {"name": "Thịt kho trứng", "desc": "Món ăn quốc dân, đậm đà ăn cùng cơm trắng là hết sảy.", "appeal": "⭐⭐⭐⭐⭐ (Khó cưỡng)"},
+        {"name": "Cá hú kho", "desc": "Vị béo của cá hú quyện cùng tiêu cay, cực kỳ bắt cơm.", "appeal": "⭐⭐⭐⭐ (Đậm đà)"},
+        {"name": "Trứng chiên", "desc": "Đơn giản nhưng luôn là món 'chữa cháy' tuyệt vời.", "appeal": "⭐⭐⭐ (Nhanh gọn)"},
+        {"name": "Canh chua", "desc": "Thanh mát, giải nhiệt cho một ngày dài làm việc.", "appeal": "⭐⭐⭐⭐ (Sảng khoái)"}
+    ]
+
+    col1, col2 = st.columns(2)
+    for i, item in enumerate(suggestions):
+        with (col1 if i % 2 == 0 else col2):
+            with st.container(border=True):
+                st.subheader(item["name"])
+                st.write(item["desc"])
+                st.caption(f"**Độ hấp dẫn:** {item['appeal']}")
+                if st.button(f"Chọn {item['name']}", key=f"btn_{i}"):
+                    st.success(f"Đã ghi chú! Hôm nay bạn sẽ ăn {item['name']} nhé!")
+
+    st.write("---")
+    st.info("💡 **Mẹo nhỏ:** Bạn có thể kết hợp Sườn nướng + Canh chua để có một bữa ăn chuẩn vị Canteen AI!")
