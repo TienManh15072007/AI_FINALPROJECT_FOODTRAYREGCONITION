@@ -339,3 +339,28 @@ elif page == "Hệ Thống Nhận Diện":
                 st.balloons()
     else:
         st.info("👋 Chào mừng đến với khu vực Thu Ngân! Vui lòng tải ảnh khay ăn lên hệ thống để bắt đầu quét tự động.")
+# Thêm biến lưu danh sách message AI trước khi in ra
+ai_messages = [] 
+
+# ... (Trong vòng lặp for idx, (region_name, region_img) in enumerate(regions.items()): )
+    
+    # ... [Code cũ nhận diện xong]
+    
+    # CẢI TIẾN: Thêm hiệu ứng "AI Thinking" nhẹ
+    with st.empty():
+        st.write(f"🔍 AI đang quét ngăn {region_name}...")
+        time.sleep(0.3) 
+    
+    # AI Co-pilot phát biểu
+    if confidence > 80:
+        msg = f"✅ [Co-pilot]: Tự tin xác nhận món {food_name}. Cấu trúc nguyên liệu khớp hoàn hảo."
+    elif confidence > 60:
+        msg = f"⚠️ [Co-pilot]: Phát hiện dấu hiệu của {food_name}. Đang đối chiếu dữ liệu hình ảnh..."
+    else:
+        msg = f"❌ [Co-pilot]: Dữ liệu hình ảnh tại ngăn {region_name} chưa đủ rõ nét. Vui lòng kiểm tra lại."
+    ai_messages.append(msg)
+
+# ... [Sau vòng lặp for, hiển thị bảng Co-pilot Console]
+st.markdown("<div class='cyber-banner'>🤖 AI CO-PILOT CONSOLE</div>", unsafe_allow_html=True)
+with st.container():
+    st.info("\n".join(ai_messages))
