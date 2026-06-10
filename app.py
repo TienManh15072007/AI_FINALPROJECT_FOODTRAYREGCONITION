@@ -334,65 +334,64 @@ elif page == "Hệ Thống Nhận Diện":
                 unsafe_allow_html=True
             )
             # ------------------------------------------
-        # XỬ LÝ NHẬN DIỆN VÀ HIỂN THỊ KẾT QUẢ
-        # ------------------------------------------
-        h, w, _ = img_aligned.shape
-        regions = {
-            "Ngăn Cơm": img_aligned[int(h*0.02):int(h*0.44), int(w*0.02):int(w*0.54)],
-            "Ngăn Canh": img_aligned[int(h*0.46):int(h*0.98), int(w*0.02):int(w*0.54)],
-            "Ngăn Món 1": img_aligned[int(h*0.02):int(h*0.32), int(w*0.56):int(w*0.98)],
-            "Ngăn Món 2": img_aligned[int(h*0.34):int(h*0.64), int(w*0.56):int(w*0.98)],
-            "Ngăn Món 3": img_aligned[int(h*0.66):int(h*0.98), int(w*0.56):int(w*0.98)]
-        }
-        
-        total_bill = 0
-        receipt_lines = []
-        ai_messages = []
-        cols = st.columns(5)
-        
-        for idx, (region_name, region_img) in enumerate(regions.items()):
-            with cols[idx]:
-                # Xử lý dự đoán
-                img_resized = cv2.resize(region_img, (224, 224))
-                img_batch = np.expand_dims(img_resized, axis=0).astype('float32')
-                img_batch = preprocess_input(img_batch)
-                
-                predictions = model.predict(img_batch, verbose=0)
-                predicted_class_idx = np.argmax(predictions[0])
-                confidence = np.max(predictions[0]) * 100
-                
-                food_name = CLASS_NAMES[predicted_class_idx]
-                price = PRICE_MAP[food_name]
-                total_bill += price
-                
-                # Hiển thị UI
-                st.image(region_img, use_container_width=True)
-                st.markdown(f"<div class='food-label'>{region_name}</div>", unsafe_allow_html=True)
-                
-                if confidence > 65:
-                    st.success(f"✅ {food_name}\n\n{price:,}đ")
-                    receipt_lines.append(f"• {region_name}: {food_name} ({price:,}đ)")
-                else:
-                    st.warning(f"⚠️ {food_name}?\n\n{price:,}đ")
-                    receipt_lines.append(f"• {region_name}: {food_name} [Cần xác nhận] ({price:,}đ)")
-                
-                # Ghi log cho AI Co-pilot
-                ai_messages.append(f"🛰️ [Co-pilot]: Phát hiện {food_name} tại {region_name}, độ tin cậy {confidence:.1f}%.")
+        # XỬ LÝ NHẬN DIỆN VÀ HIỂN THỊ KẾT QUẢ
+        # ------------------------------------------
+        h, w, _ = img_aligned.shape
+        regions = {
+            "Ngăn Cơm": img_aligned[int(h*0.02):int(h*0.44), int(w*0.02):int(w*0.54)],
+            "Ngăn Canh": img_aligned[int(h*0.46):int(h*0.98), int(w*0.02):int(w*0.54)],
+            "Ngăn Món 1": img_aligned[int(h*0.02):int(h*0.32), int(w*0.56):int(w*0.98)],
+            "Ngăn Món 2": img_aligned[int(h*0.34):int(h*0.64), int(w*0.56):int(w*0.98)],
+            "Ngăn Món 3": img_aligned[int(h*0.66):int(h*0.98), int(w*0.56):int(w*0.98)]
+        }
+        
+        total_bill = 0
+        receipt_lines = []
+        ai_messages = []
+        cols = st.columns(5)
+        
+        for idx, (region_name, region_img) in enumerate(regions.items()):
+            with cols[idx]:
+                # Xử lý dự đoán
+                img_resized = cv2.resize(region_img, (224, 224))
+                img_batch = np.expand_dims(img_resized, axis=0).astype('float32')
+                img_batch = preprocess_input(img_batch)
+                
+                predictions = model.predict(img_batch, verbose=0)
+                predicted_class_idx = np.argmax(predictions[0])
+                confidence = np.max(predictions[0]) * 100
+                
+                food_name = CLASS_NAMES[predicted_class_idx]
+                price = PRICE_MAP[food_name]
+                total_bill += price
+                
+                # Hiển thị UI
+                st.image(region_img, use_container_width=True)
+                st.markdown(f"<div class='food-label'>{region_name}</div>", unsafe_allow_html=True)
+                
+                if confidence > 65:
+                    st.success(f"✅ {food_name}\n\n{price:,}đ")
+                    receipt_lines.append(f"• {region_name}: {food_name} ({price:,}đ)")
+                else:
+                    st.warning(f"⚠️ {food_name}?\n\n{price:,}đ")
+                    receipt_lines.append(f"• {region_name}: {food_name} [Cần xác nhận] ({price:,}đ)")
+                
+                # Ghi log cho AI Co-pilot
+                ai_messages.append(f"🛰️ [Co-pilot]: Phát hiện {food_name} tại {region_name}, độ tin cậy {confidence:.1f}%.")
 
-        st.write("---")
-        
-        # BƯỚC 4: HÓA ĐƠN VÀ CONSOLE
-        col_receipt, col_console = st.columns([1, 1])
-        
-        with col_receipt:
-            st.markdown("<div class='step-banner'>🧾 BƯỚC 4: HÓA ĐƠN ĐIỆN TỬ</div>", unsafe_allow_html=True)
-            st.text_area("Chi tiết hóa đơn:", value="\n".join(receipt_lines), height=150, disabled=True)
-            st.metric("TỔNG THANH TOÁN", f"{total_bill:,} VNĐ")
-            if st.button("🖨️ XUẤT HÓA ĐƠN", use_container_width=True, type="primary"):
-                st.toast("✅ Giao dịch thành công!")
-                st.balloons()
+        st.write("---")
+        
+        # BƯỚC 4: HÓA ĐƠN VÀ CONSOLE
+        col_receipt, col_console = st.columns([1, 1])
+        
+        with col_receipt:
+            st.markdown("<div class='step-banner'>🧾 BƯỚC 4: HÓA ĐƠN ĐIỆN TỬ</div>", unsafe_allow_html=True)
+            st.text_area("Chi tiết hóa đơn:", value="\n".join(receipt_lines), height=150, disabled=True)
+            st.metric("TỔNG THANH TOÁN", f"{total_bill:,} VNĐ")
+            if st.button("🖨️ XUẤT HÓA ĐƠN", use_container_width=True, type="primary"):
+                st.toast("✅ Giao dịch thành công!")
+                st.balloons()
 
-        with col_console:
-            st.markdown("<div class='step-banner'>🤖 AI CO-PILOT CONSOLE</div>", unsafe_allow_html=True)
-            st.info("\n".join(ai_messages))
-
+        with col_console:
+            st.markdown("<div class='step-banner'>🤖 AI CO-PILOT CONSOLE</div>", unsafe_allow_html=True)
+            st.info("\n".join(ai_messages))
