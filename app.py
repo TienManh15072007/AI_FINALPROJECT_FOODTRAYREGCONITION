@@ -97,7 +97,8 @@ def auto_align_tray(img):
 # GIAO DIỆN CHIA TRANG BẰNG SIDEBAR
 # ==========================================
 st.sidebar.title("🧭 MENU CHÍNH")
-page = st.sidebar.radio("Điều hướng:", ["Trang Chủ (Giới thiệu)", "Hệ Thống Nhận Diện"])
+# Đã thêm "Góc Ẩm Thực AI" vào danh sách lựa chọn bên dưới
+page = st.sidebar.radio("Điều hướng:", ["Trang Chủ (Giới thiệu)", "Hệ Thống Nhận Diện", "Góc Ẩm Thực AI"])
 
 # ------------------------------------------
 # TRANG 1: MARKETING & GIỚI THIỆU
@@ -248,7 +249,7 @@ elif page == "Hệ Thống Nhận Diện":
 
         with col_preview:
             st.markdown("<div class='step-banner'>🎯 KẾT QUẢ CĂN LỀ AI</div>", unsafe_allow_html=True)
-            with St.spinner("⏳ Trí tuệ nhân tạo đang xoay lật và tối ưu hóa ảnh..."):
+            with st.spinner("⏳ Trí tuệ nhân tạo đang xoay lật và tối ưu hóa ảnh..."):
                 if rotation_mode == "Tự động chỉnh hướng":
                     img_aligned = auto_align_tray(img_array)
                 elif rotation_mode == "Xoay 90° theo chiều KĐH (CW)":
@@ -341,6 +342,7 @@ elif page == "Hệ Thống Nhận Diện":
         with col_console:
             st.markdown("<div class='step-banner'>🤖 AI CO-PILOT CONSOLE</div>", unsafe_allow_html=True)
             st.info("\n\n".join(ai_messages))
+
 # ------------------------------------------
 # TRANG 3: GÓC ẨM THỰC AI
 # ------------------------------------------
