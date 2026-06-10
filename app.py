@@ -9,10 +9,10 @@ from tensorflow.keras.applications.efficientnet import preprocess_input
 
 # Cấu hình trang cơ bản
 st.set_page_config(
-    page_title="Hệ Thống Thanh Toán Khay Cơm AI", 
-    page_icon="🍲", 
-    layout="wide",
-    initial_sidebar_state="expanded"
+    page_title="Hệ Thống Thanh Toán Khay Cơm AI",
+    page_icon="🍲",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
 # Bảng giá và Tên món ăn
