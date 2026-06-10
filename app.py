@@ -97,7 +97,6 @@ def auto_align_tray(img):
 # GIAO DIỆN CHIA TRANG BẰNG SIDEBAR
 # ==========================================
 st.sidebar.title("🧭 MENU CHÍNH")
-# Đã thêm "Góc Ẩm Thực AI" vào danh sách lựa chọn bên dưới
 page = st.sidebar.radio("Điều hướng:", ["Trang Chủ (Giới thiệu)", "Hệ Thống Nhận Diện", "Góc Ẩm Thực AI"])
 
 # ------------------------------------------
@@ -344,26 +343,53 @@ elif page == "Hệ Thống Nhận Diện":
             st.info("\n\n".join(ai_messages))
 
 # ------------------------------------------
-# TRANG 3: GÓC ẨM THỰC AI
+# TRANG 3: GÓC ẨM THỰC AI (ĐÃ CẬP NHẬT ẢNH CHI TIẾT)
 # ------------------------------------------
 elif page == "Góc Ẩm Thực AI":
     st.markdown("<h1>✨ GÓC GỢI Ý MÓN NGON TỪ AI</h1>", unsafe_allow_html=True)
     st.markdown("<p style='text-align:center;'>Để AI giúp bạn chọn một bữa ăn đầy đủ dinh dưỡng và hấp dẫn nhất hôm nay!</p>", unsafe_allow_html=True)
     st.write("---")
 
-    # Dữ liệu gợi ý món ăn
+    # Dữ liệu gợi ý món ăn tích hợp link hình ảnh trực tuyến chất lượng cao
     suggestions = [
-        {"name": "Sườn nướng", "desc": "Sườn nướng mật ong thơm phức, thịt mềm tan trong miệng.", "appeal": "⭐⭐⭐⭐⭐ (Siêu hấp dẫn)"},
-        {"name": "Thịt kho trứng", "desc": "Món ăn quốc dân, đậm đà ăn cùng cơm trắng là hết sảy.", "appeal": "⭐⭐⭐⭐⭐ (Khó cưỡng)"},
-        {"name": "Cá hú kho", "desc": "Vị béo của cá hú quyện cùng tiêu cay, cực kỳ bắt cơm.", "appeal": "⭐⭐⭐⭐ (Đậm đà)"},
-        {"name": "Trứng chiên", "desc": "Đơn giản nhưng luôn là món 'chữa cháy' tuyệt vời.", "appeal": "⭐⭐⭐ (Nhanh gọn)"},
-        {"name": "Canh chua", "desc": "Thanh mát, giải nhiệt cho một ngày dài làm việc.", "appeal": "⭐⭐⭐⭐ (Sảng khoái)"}
+        {
+            "name": "Sườn nướng", 
+            "desc": "Sườn nướng mật ong thơm phức, thịt mềm tan trong miệng.", 
+            "appeal": "⭐⭐⭐⭐⭐ (Siêu hấp dẫn)",
+            "image": "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        },
+        {
+            "name": "Thịt kho trứng", 
+            "desc": "Món ăn quốc dân, đậm đà ăn cùng cơm trắng là hết sảy.", 
+            "appeal": "⭐⭐⭐⭐⭐ (Khó cưỡng)",
+            "image": "https://images.unsplash.com/photo-1598514983318-2f64f8f4796c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        },
+        {
+            "name": "Cá hú kho", 
+            "desc": "Vị béo của cá hú quyện cùng tiêu cay, cực kỳ bắt cơm.", 
+            "appeal": "⭐⭐⭐⭐ (Đậm đà)",
+            "image": "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        },
+        {
+            "name": "Trứng chiên", 
+            "desc": "Đơn giản nhưng luôn là món 'chữa cháy' tuyệt vời.", 
+            "appeal": "⭐⭐⭐ (Nhanh gọn)",
+            "image": "https://images.unsplash.com/photo-1525351484163-7529414344d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        },
+        {
+            "name": "Canh chua", 
+            "desc": "Thanh mát, giải nhiệt cho một ngày dài làm việc.", 
+            "appeal": "⭐⭐⭐⭐ (Sảng khoái)",
+            "image": "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+        }
     ]
 
     col1, col2 = st.columns(2)
     for i, item in enumerate(suggestions):
         with (col1 if i % 2 == 0 else col2):
             with st.container(border=True):
+                # Hiển thị hình ảnh của từng món ăn cụ thể
+                st.image(item["image"], use_container_width=True, caption=f"Hình ảnh minh họa: {item['name']}")
                 st.subheader(item["name"])
                 st.write(item["desc"])
                 st.caption(f"*Độ hấp dẫn:* {item['appeal']}")
