@@ -31,9 +31,17 @@ PRICE_MAP = {
 }
 
 CLASS_NAMES = [
-    "Cơm trắng", "Trứng chiên", "Khay inox (Trống)", "Đậu hũ sốt cà",
-    "Cá hú kho", "Thịt kho trứng", "Thịt kho", "Canh chua",
-    "Sườn nướng", "Canh rau", "Rau xào"
+    "Cơm trắng",
+    "Trứng chiên",
+    "Khay inox (Trống)",
+    "Đậu hũ sốt cà",
+    "Cá hú kho",
+    "Thịt kho trứng",
+    "Thịt kho",
+    "Canh chua",
+    "Sườn nướng",
+    "Canh rau",
+    "Rau xào"
 ]
 
 # Hàm khởi tạo và tải Model (Sử dụng Cache để tải 1 lần)
@@ -43,24 +51,20 @@ def init_model():
     model_url = "https://github.com/TienManh15072007/AI_FINALPROJECT_FOODTRAYREGCONITION/releases/download/v1.0/canteen_model_STAGE1.keras"
     
     if not os.path.exists(model_path):
-        try:
-            response = requests.get(model_url, stream=True)
-            response.raise_for_status()
-            with open(model_path, 'wb') as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:
-                        f.write(chunk)
-        except Exception as e:
-            st.error(f"❌ Không thể tải model từ hệ thống: {e}")
-            
+        response = requests.get(model_url, stream=True)
+        response.raise_for_status()
+        with open(model_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+                    
     return tf.keras.models.load_model(model_path)
 
 # Hàm tự động phân tích và căn lề khay cơm
 def auto_align_tray(img):
-    img_cp = img.copy()
-    h, w, _ = img_cp.shape
+    h, w, _ = img.shape
     if w > h:
-        gray = cv2.cvtColor(img_cp, cv2.COLOR_RGB2GRAY)
+        gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
         gray_resized = cv2.resize(gray, (400, 300))
         top_half = gray_resized[0:150, :]
         bottom_half = gray_resized[150:300, :]
@@ -70,12 +74,12 @@ def auto_align_tray(img):
         score_bottom = np.sum(np.abs(sobel_x_bottom))
         
         if score_top < score_bottom:
-            img_cp = cv2.rotate(img_cp, cv2.ROTATE_90_COUNTERCLOCKWISE)
+            img = cv2.rotate(img, cv2.ROTATE_90_COUNTERCLOCKWISE)
         else:
-            img_cp = cv2.rotate(img_cp, cv2.ROTATE_90_CLOCKWISE)
+            img = cv2.rotate(img, cv2.ROTATE_90_CLOCKWISE)
 
-    h, w, _ = img_cp.shape
-    gray = cv2.cvtColor(img_cp, cv2.COLOR_RGB2GRAY)
+    h, w, _ = img.shape
+    gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     gray_resized = cv2.resize(gray, (300, 400))
     left_half = gray_resized[:, 0:150]
     right_half = gray_resized[:, 150:300]
@@ -85,9 +89,9 @@ def auto_align_tray(img):
     score_right = np.sum(np.abs(sobel_y_right))
 
     if score_left > score_right:
-        img_cp = cv2.rotate(img_cp, cv2.ROTATE_180)
+        img = cv2.rotate(img, cv2.ROTATE_180)
 
-    return img_cp
+    return img
 
 # ==========================================
 # GIAO DIỆN CHIA TRANG BẰNG SIDEBAR
@@ -106,19 +110,19 @@ if page == "Trang Chủ (Giới thiệu)":
         font-family: 'Montserrat', sans-serif;
     }
     .stApp {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), url("https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
     }
-    h1, h2, h3, p, span, div, label {
+    h1, h2, h3, p, span, div {
         color: white !important;
     }
     .main-title {
         font-size: 3.5rem;
         font-weight: 800;
         text-align: center;
-        margin-top: 10vh;
+        margin-top: 15vh;
         color: #F39C12 !important;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
     }
@@ -127,10 +131,6 @@ if page == "Trang Chủ (Giới thiệu)":
         text-align: center;
         margin-bottom: 50px;
         text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-    }
-    /* Giữ màu chữ trong các block thông báo nổi bật */
-    .stAlert p {
-        color: black !important;
     }
     </style>
     """
@@ -160,9 +160,12 @@ elif page == "Hệ Thống Nhận Diện":
     .stApp {
         background-color: #FFFDF9;
     }
+    .st-emotion-cache-1jicfl2 {
+        padding: 2rem 3rem;
+    }
     .step-banner {
         background: linear-gradient(135deg, #FF7E5F 0%, #FEB47B 100%);
-        color: white !important;
+        color: white;
         padding: 12px 20px;
         border-radius: 8px;
         font-weight: 700;
@@ -170,23 +173,35 @@ elif page == "Hệ Thống Nhận Diện":
         margin-bottom: 15px;
         margin-top: 25px;
         box-shadow: 0 4px 6px rgba(255, 126, 95, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
     [data-testid="stFileUploadDropzone"] {
         background-color: #ffffff !important;
         border: 2px dashed #FF7E5F !important;
         border-radius: 12px !important;
     }
+    [data-testid="stFileUploadDropzone"] div {
+        color: #2C3E50 !important;
+    }
+    .stRadio label, .stRadio p {
+        font-weight: 600 !important;
+        color: #2C3E50 !important;
+    }
     .receipt-container {
         background-color: #FEF9E7;
         border: 2px dashed #F39C12;
         border-radius: 10px;
         padding: 5px;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
     }
     h1 {
         color: #D35400 !important;
         text-align: center;
         font-weight: 800 !important;
         text-transform: uppercase;
+        letter-spacing: 1px;
     }
     .subtitle-text {
         text-align: center;
@@ -199,6 +214,7 @@ elif page == "Hệ Thống Nhận Diện":
         font-weight: 700;
         color: #2C3E50;
         margin-top: 10px;
+        margin-bottom: 5px;
         font-size: 1.1rem;
     }
     </style>
@@ -210,6 +226,7 @@ elif page == "Hệ Thống Nhận Diện":
 
     st.markdown("<h1>Khu Vực Thanh Toán Thu Ngân</h1>", unsafe_allow_html=True)
     st.markdown("<p class='subtitle-text'>Xác nhận khay ăn tự động • Nhanh chóng • Chính xác</p>", unsafe_allow_html=True)
+    
     st.write("---")
 
     col_input, col_preview = st.columns([1.2, 1], gap="large")
@@ -246,9 +263,9 @@ elif page == "Hệ Thống Nhận Diện":
                 st.image(img_aligned, use_container_width=True)
 
         st.write("---")
+        
         st.markdown("<div class='step-banner'>🍱 BƯỚC 3: KẾT QUẢ QUÉT TỪNG NGĂN</div>", unsafe_allow_html=True)
         
-        # QUAN TRỌNG: Lấy lại h, w THỰC TẾ của ảnh SAU KHI đã xoay lật để cắt chính xác vị trí các ngăn
         h, w, _ = img_aligned.shape
         regions = {
             "Ngăn Cơm": img_aligned[int(h*0.02):int(h*0.44), int(w*0.02):int(w*0.54)],
@@ -284,7 +301,7 @@ elif page == "Hệ Thống Nhận Diện":
                 st.image(region_img, use_container_width=True)
                 st.markdown(f"<div class='food-label'>{region_name}</div>", unsafe_allow_html=True)
                 
-                if predicted_class_idx == 2: # Khay trống
+                if predicted_class_idx == 2:
                     st.info(f"⚪ Trống \n\n {confidence:.1f}%")
                     receipt_lines.append(f"• {region_name}: Trống (0đ)")
                 elif confidence > 65:
@@ -298,6 +315,7 @@ elif page == "Hệ Thống Nhận Diện":
 
         st.write("---")
         
+        # BƯỚC 4: HÓA ĐƠN VÀ CONSOLE KIỂU MỚI ĐẸP HƠN
         col_receipt, col_console = st.columns([1, 1])
         
         with col_receipt:
@@ -325,46 +343,43 @@ elif page == "Hệ Thống Nhận Diện":
             st.info("\n\n".join(ai_messages))
 
 # ------------------------------------------
-# TRANG 3: GÓC ẨM THỰC AI
+# TRANG 3: GÓC ẨM THỰC AI (ĐÃ HOÀN THIỆN ẢNH VIỆT NAM & HIỆU ỨNG PHÁT SÁNG)
 # ------------------------------------------
 elif page == "Góc Ẩm Thực AI":
+    # CSS Custom tạo hiệu ứng phát sáng Neon chuyển màu lung linh cho thẻ món ăn
     glow_css = """
     <style>
-    /* CSS hiệu ứng viền phát sáng viễn tưởng mềm mại cho các khối món ăn */
-    .glow-card {
+    [data-testid="stVVerticalBlock"] > div:has(div.stElementContainer) {
+        transition: all 0.3s ease-in-out;
+    }
+    /* Áp dụng hiệu ứng viền phát sáng viễn tưởng cho các Container món ăn */
+    .stElementContainer:has(.food-card-glow) {
         border-radius: 12px;
-        box-shadow: 0 0 15px rgba(255, 126, 95, 0.3);
+        box-shadow: 0 0 15px rgba(255, 126, 95, 0.5), inset 0 0 10px rgba(254, 180, 123, 0.2);
         border: 1px solid rgba(255, 126, 95, 0.4);
-        padding: 15px;
+        padding: 10px;
         background: #ffffff;
-        margin-bottom: 20px;
-    }
-    .glow-card h3 {
-        color: #D35400 !important;
-        margin-top: 10px;
-    }
-    .glow-card p {
-        color: #2C3E50 !important;
     }
     </style>
     """
     st.markdown(glow_css, unsafe_allow_html=True)
 
     st.markdown("<h1>✨ GÓC GỢI Ý MÓN NGON TỪ AI</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center; color:#7F8C8D;'>Để AI giúp bạn chọn một bữa ăn đầy đủ dinh dưỡng và đậm đà bản sắc cơm Việt hôm nay!</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center;'>Để AI giúp bạn chọn một bữa ăn đầy đủ dinh dưỡng và đậm đà bản sắc cơm Việt hôm nay!</p>", unsafe_allow_html=True)
     st.write("---")
 
+    # Dữ liệu hình ảnh được thay đổi chính xác sang phong cách Cơm Văn Phòng / Cơm Bình Dân Việt Nam
     suggestions = [
         {
             "name": "Sườn cốt lết nướng", 
             "desc": "Sườn cốt lết được đập mềm, ướp sả mật ong nướng vàng xém cạnh, chuẩn vị cơm tấm văn phòng.", 
-            "appeal": "⭐⭐⭐⭐• (Siêu hấp dẫn)",
+            "appeal": "⭐⭐⭐⭐⭐ (Siêu hấp dẫn)",
             "image": "https://i.ytimg.com/vi/picf2oCcsb0/maxresdefault.jpg"
         },
         {
             "name": "Thịt kho tàu (Thịt kho trứng)", 
-            "desc": "Thịt ba chỉ vuông vức kho rục cùng hột vịt, nước kho dừa màu cánh gián đậm đà đưa cơm.", 
-            "appeal": "⭐⭐⭐⭐• (Khó cưỡng)",
+            "desc": "Thịt ba chỉ vuông vức kho r rục cùng hột vịt, nước kho dừa màu cánh gián đậm đà đưa cơm.", 
+            "appeal": "⭐⭐⭐⭐⭐ (Khó cưỡng)",
             "image": "https://cdn.nguyenkimmall.com/images/companies/_1/tin-tuc/kinh-nghiem-meo-hay/n%E1%BA%A5u%20%C4%83n/thit-kho-tau-voi-trung-thom-ngon.jpg"
         },
         {
@@ -390,18 +405,15 @@ elif page == "Góc Ẩm Thực AI":
     col1, col2 = st.columns(2)
     for i, item in enumerate(suggestions):
         with (col1 if i % 2 == 0 else col2):
-            # Tạo khối HTML thuần kết hợp với widget của Streamlit để giao diện không bị vỡ lỗi CSS
-            st.markdown(f"""
-            <div class="glow-card">
-                <img src="{item['image']}" style="width:100%; border-radius:8px; aspect-ratio:16/9; object-fit:cover;"/>
-                <h3>{item['name']}</h3>
-                <p>{item['desc']}</p>
-                <small style='color: #7F8C8D;'><i>Đánh giá từ AI:</i> {item['appeal']}</small>
-            </div>
-            """, unsafe_allow_html=True)
-            
-            if st.button(f"Chọn {item['name']}", key=f"btn_{i}", use_container_width=True):
-                st.toast(f"🍽️ AI đã ghi nhận bạn chọn món: {item['name']}")
-     
+            # Tạo khối container có class định danh để nhận hiệu ứng phát sáng CSS ở trên
+            with st.container(border=True):
+                st.markdown("<div class='food-card-glow'></div>", unsafe_allow_html=True)
+                st.image(item["image"], use_container_width=True, caption=f"Món ăn thực tế: {item['name']}")
+                st.subheader(item["name"])
+                st.write(item["desc"])
+                st.caption(f"*Đánh giá từ AI:* {item['appeal']}")
+                if st.button(f"Chọn {item['name']}", key=f"btn_{i}", use_container_width=True):
+                    st.success(f"Đã ghi chú! AI hệ thống đã thêm {item['name']} vào thực đơn lý tưởng của bạn.")
+
     st.write("---")
     st.info("💡 *Mẹo nhỏ từ AI:* Bộ đôi Combo bất bại của dân văn phòng: **Sườn cốt lết nướng** kết hợp cùng **Canh chua dọc mùng** sẽ mang lại nguồn năng lượng tối đa!")
