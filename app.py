@@ -1,6 +1,3 @@
-Tuyệt vời! Dưới đây là toàn bộ mã nguồn file app.py đã được chỉnh sửa hoàn thiện. Mình đã đưa các hiệu ứng giao diện ra khỏi hàm init_model() để khắc phục triệt để lỗi bộ nhớ đệm, đồng thời cập nhật lại đường link tải model cho chính xác.
-
-Python
 import os
 import requests
 import streamlit as st
