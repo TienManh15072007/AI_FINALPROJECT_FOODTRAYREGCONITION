@@ -1,4 +1,6 @@
+Tuyệt vời! Dưới đây là toàn bộ mã nguồn file app.py đã được chỉnh sửa hoàn thiện. Mình đã đưa các hiệu ứng giao diện ra khỏi hàm init_model() để khắc phục triệt để lỗi bộ nhớ đệm, đồng thời cập nhật lại đường link tải model cho chính xác.
 
+Python
 import os
 import requests
 import streamlit as st
@@ -67,22 +69,22 @@ st.markdown(page_bg_img, unsafe_allow_html=True)
 @st.cache_resource
 def init_model():
     model_path = "canteen_model_STAGE1.keras"
-    model_url = "https://github.com/TienManh15072007/AI_FINALPROJECT_FOODTRAYREGCONITION/releases/download/model.py/canteen_model_STAGE1.keras"
+    model_url = "https://github.com/TienManh15072007/AI_FINALPROJECT_FOODTRAYREGCONITION/releases/download/v1.0/canteen_model_STAGE1.keras"
     
     if not os.path.exists(model_path):
-        with st.spinner("⏳ Hệ thống đang tải Model AI từ server (Chỉ tải lần đầu tiên, vui lòng đợi)..."):
-            response = requests.get(model_url, stream=True)
-            response.raise_for_status()
-            
-            with open(model_path, 'wb') as f:
-                for chunk in response.iter_content(chunk_size=8192):
-                    if chunk:
-                        f.write(chunk)
-        st.toast("✅ Đã tải xong Model AI!")
+        response = requests.get(model_url, stream=True)
+        response.raise_for_status()
         
+        with open(model_path, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                if chunk:
+                    f.write(chunk)
+                    
     return FoodClassifier()
 
-classifier = init_model()
+with st.spinner("⏳ Hệ thống đang tải Model AI từ server (Chỉ tải lần đầu tiên, vui lòng đợi)..."):
+    classifier = init_model()
+
 processor = TrayProcessor()
 billing = BillingSystem()
 
