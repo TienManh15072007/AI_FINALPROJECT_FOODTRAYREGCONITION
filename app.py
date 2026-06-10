@@ -140,54 +140,91 @@ if page == "Trang Chủ (Giới thiệu)":
 elif page == "Hệ Thống Nhận Diện":
     app_bg = """
     <style>
-    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap');
     html, body, [class*="css"] {
         font-family: 'Montserrat', sans-serif;
     }
     .stApp {
-        background-color: #F4F6F9;
-        background-image: none;
+        background-color: #FFFDF9;
     }
-    div[data-testid="stVerticalBlock"] > div[style*="flex-direction: column;"] {
-        background: white;
-        border-radius: 12px;
-        padding: 25px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        border: 1px solid #E0E0E0;
+    .st-emotion-cache-1jicfl2 {
+        padding: 2rem 3rem;
+    }
+    .step-banner {
+        background: linear-gradient(135deg, #FF7E5F 0%, #FEB47B 100%);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        margin-top: 25px;
+        box-shadow: 0 4px 6px rgba(255, 126, 95, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    [data-testid="stFileUploadDropzone"] {
+        background-color: #ffffff !important;
+        border: 2px dashed #FF7E5F !important;
+        border-radius: 12px !important;
+    }
+    [data-testid="stFileUploadDropzone"] div {
+        color: #2C3E50 !important;
+    }
+    .stRadio label {
+        font-weight: 600;
+        color: #34495E;
+    }
+    .receipt-container {
+        background-color: #FEF9E7;
+        border: 2px dashed #F39C12;
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
     }
     h1 {
-        color: #2C3E50 !important;
+        color: #D35400 !important;
         text-align: center;
         font-weight: 800 !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
-    h3 {
-        color: #2980B9 !important;
-        font-weight: 600 !important;
+    .subtitle-text {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #7F8C8D;
+        margin-bottom: 30px;
     }
-    p, span, label {
-        color: #333333 !important;
-        font-weight: 500;
+    .food-label {
+        text-align: center;
+        font-weight: 700;
+        color: #2C3E50;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-size: 1.1rem;
     }
     </style>
     """
     st.markdown(app_bg, unsafe_allow_html=True)
 
-    with st.spinner("⏳ Hệ thống đang tải Model AI từ server (Chỉ tải lần đầu tiên, vui lòng đợi)..."):
+    with st.spinner("⏳ Khởi động động cơ AI, vui lòng đợi trong giây lát..."):
         model = init_model()
 
-    st.title("🍲 KHU VỰC NHẬN DIỆN & THANH TOÁN")
-    st.markdown("<p style='text-align: center; font-size: 1.2rem; color: #555 !important;'>Giải pháp ứng dụng <b>Computer Vision & EfficientNetB0</b> tối ưu hóa quy trình Canteen</p>", unsafe_allow_html=True)
+    st.markdown("<h1>Khu Vực Thanh Toán Thu Ngân</h1>", unsafe_allow_html=True)
+    st.markdown("<p class='subtitle-text'>Xác nhận khay ăn tự động • Nhanh chóng • Chính xác</p>", unsafe_allow_html=True)
+    
     st.write("---")
 
     col_input, col_preview = st.columns([1.2, 1], gap="large")
 
     with col_input:
-        st.markdown("### 📸 1. Tải Ảnh Khay Cơm")
-        uploaded_file = st.file_uploader("Kéo thả hoặc chọn ảnh từ thiết bị (jpg, png)...", type=["jpg", "jpeg", "png"])
+        st.markdown("<div class='step-banner'>📸 BƯỚC 1: TẢI ẢNH KHAY CƠM</div>", unsafe_allow_html=True)
+        uploaded_file = st.file_uploader("Kéo thả ảnh hoặc chọn từ thiết bị (Hỗ trợ: jpg, png)", type=["jpg", "jpeg", "png"])
         
-        st.markdown("### 🔄 2. Tùy Chỉnh Hướng (Tùy chọn)")
+        st.markdown("<div class='step-banner'>🔄 BƯỚC 2: TÙY CHỈNH GÓC NHÌN</div>", unsafe_allow_html=True)
         rotation_mode = st.radio(
-            "AI sẽ tự động căn lề. Bạn có thể can thiệp thủ công nếu cần:",
+            "Cài đặt căn lề tự động của AI (Chỉ can thiệp khi cần thiết):",
             ("Tự động chỉnh hướng", "Giữ nguyên (0°)", "Xoay 90° theo chiều KĐH (CW)", "Xoay 90° ngược chiều KĐH (CCW)", "Xoay 180°"),
             horizontal=True
         )
@@ -197,8 +234,8 @@ elif page == "Hệ Thống Nhận Diện":
         img_array = np.array(image)
 
         with col_preview:
-            st.markdown("### 🎯 Kết Quả Căn Lề Chuẩn")
-            with st.spinner("⏳ AI đang tự động phân tích và căn chỉnh..."):
+            st.markdown("<div class='step-banner'>🎯 KẾT QUẢ CĂN LỀ AI</div>", unsafe_allow_html=True)
+            with st.spinner("⏳ Trí tuệ nhân tạo đang xoay lật và tối ưu hóa ảnh..."):
                 if rotation_mode == "Tự động chỉnh hướng":
                     img_aligned = auto_align_tray(img_array)
                 elif rotation_mode == "Xoay 90° theo chiều KĐH (CW)":
@@ -210,11 +247,11 @@ elif page == "Hệ Thống Nhận Diện":
                 else:
                     img_aligned = img_array
                 
-                st.image(img_aligned, use_container_width=True, caption="Ảnh đã được tối ưu hóa góc nhìn")
+                st.image(img_aligned, use_container_width=True)
 
         st.write("---")
         
-        st.markdown("### 🍱 3. Phân Tích & Nhận Diện Từng Ngăn")
+        st.markdown("<div class='step-banner'>🍱 BƯỚC 3: KẾT QUẢ QUÉT TỪNG NGĂN</div>", unsafe_allow_html=True)
         
         h, w, _ = img_aligned.shape
         regions = {
@@ -248,7 +285,7 @@ elif page == "Hệ Thống Nhận Diện":
                 total_bill += price
                 
                 st.image(region_img, use_container_width=True)
-                st.markdown(f"<p style='text-align: center; font-weight: bold; margin-bottom: 5px; color: #2C3E50 !important;'>{region_name}</p>", unsafe_allow_html=True)
+                st.markdown(f"<div class='food-label'>{region_name}</div>", unsafe_allow_html=True)
                 
                 if predicted_class_idx == 2:
                     st.info(f"⚪ Trống \n\n {confidence:.1f}%")
@@ -258,30 +295,33 @@ elif page == "Hệ Thống Nhận Diện":
                     receipt_lines.append(f"• {region_name}: {food_name} ({price:,}đ)")
                 else:
                     st.warning(f"⚠️ {food_name}? \n\n {price:,}đ")
-                    receipt_lines.append(f"• {region_name}: {food_name} [Cần xác nhận] ({price:,}đ)")
+                    receipt_lines.append(f"• {region_name}: {food_name} [Xác nhận] ({price:,}đ)")
 
         st.write("---")
         
-        st.markdown("### 🧾 4. Hóa Đơn Thanh Toán")
+        st.markdown("<div class='step-banner'>🧾 BƯỚC 4: HÓA ĐƠN ĐIỆN TỬ</div>", unsafe_allow_html=True)
         
         bill_col1, bill_col2 = st.columns([2, 1.5])
         
         with bill_col1:
+            st.markdown("<div class='receipt-container'>", unsafe_allow_html=True)
             bill_text = "\n".join(receipt_lines)
-            st.text_area("Chi tiết từng món (Bảng giá tham chiếu):", value=bill_text, height=180, disabled=True)
+            st.text_area("Chi tiết món ăn:", value=bill_text, height=180, disabled=True)
+            st.markdown("</div>", unsafe_allow_html=True)
             
         with bill_col2:
             st.markdown(
                 f"""
-                <div style="background-color: #27AE60; padding: 30px; border-radius: 15px; text-align: center; color: white; box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);">
-                    <h3 style="color: white !important; margin-top: 0;">TỔNG THANH TOÁN</h3>
-                    <h1 style="color: white !important; font-size: 3rem; margin-bottom: 0;">{total_bill:,} ₫</h1>
+                <div style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); padding: 30px; border-radius: 15px; text-align: center; color: white; box-shadow: 0 8px 15px rgba(56, 239, 125, 0.3);">
+                    <h3 style="color: white !important; margin-top: 0; font-weight: 600;">TỔNG THANH TOÁN</h3>
+                    <h1 style="color: white !important; font-size: 3.5rem; margin-bottom: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">{total_bill:,} ₫</h1>
                 </div>
                 """, 
                 unsafe_allow_html=True
             )
-            if st.button("🖨️ In Hóa Đơn / Khách Mới", use_container_width=True, type="primary"):
-                st.toast("✅ Đã ghi nhận thanh toán thành công!")
+            st.write("")
+            if st.button("🖨️ XUẤT HÓA ĐƠN & NHẬN KHÁCH TIẾP THEO", use_container_width=True, type="primary"):
+                st.toast("✅ Giao dịch thành công! Đã lưu vào hệ thống.")
                 st.balloons()
     else:
-        st.info("👋 Xin chào! Vui lòng tải lên một bức ảnh khay cơm ở mục số 1 để hệ thống bắt đầu làm việc.")
+        st.info("👋 Chào mừng đến với khu vực Thu Ngân! Vui lòng tải ảnh khay ăn lên hệ thống để bắt đầu quét tự động.")
