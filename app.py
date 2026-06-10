@@ -110,67 +110,29 @@ if page == "Trang Chủ (Giới thiệu)":
         font-family: 'Montserrat', sans-serif;
     }
     .stApp {
-    background-color: #3D0B0A; /* Nền đỏ sẫm trầm, giống phần trên của ảnh */
-}
-    .st-emotion-cache-1jicfl2 {
-    padding: 2rem 3rem;
-}
-    .step-banner {
-    background: linear-gradient(135deg, #B22222 0%, #D4AF37 100%); /* Đỏ sắt rỉ sang Vàng đồng */
-
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    margin-top: 25px;
-    box-shadow: 0 4px 6px rgba(178, 34, 34, 0.2); /* Bóng màu đỏ sắt rỉ */
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-    [data-testid="stFileUploadDropzone"] {
-    background-color: #ffffff !important;
-    border: 2px dashed #B22222 !important; /* Viền màu đỏ sắt rỉ */
-    border-radius: 12px !important;
-}
-    [data-testid="stFileUploadDropzone"] div {
-    color: #D4AF37 !important; /* Văn bản màu vàng đồng */
-}
-    .stRadio label, .stRadio p {
-    font-weight: 600 !important;
-    color: #D4AF37 !important; /* Văn bản màu vàng đồng */
-}
-    .receipt-container {
-    background-color: #FDE6A6; /* Nền vàng đồng nhạt hơn, để văn bản dễ đọc */
-    border: 2px dashed #B22222; /* Viền màu đỏ sắt rỉ */
-    border-radius: 10px;
-    padding: 5px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-}
-    h1 {
-    color: #D4AF37 !important; /* Tiêu đề màu vàng đồng */
-    text-align: center;
-    font-weight: 800 !important;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-    .subtitle-text {
-    text-align: center;
-    font-size: 1.1rem;
-    color: #D4AF37; /* Văn bản phụ màu vàng đồng */
-    margin-bottom: 30px;
-}
-    .food-label {
-    text-align: center;
-    font-weight: 700;
-    color: #D4AF37; /* Nhãn màu vàng đồng */
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-size: 1.1rem;
-}. hãy sửa và đưa tôi code hoàn chỉnh sau khi sửa
-
-</style>
+        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+    }
+    h1, h2, h3, p, span, div {
+        color: white !important;
+    }
+    .main-title {
+        font-size: 3.5rem;
+        font-weight: 800;
+        text-align: center;
+        margin-top: 15vh;
+        color: #F39C12 !important;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+    .sub-title {
+        font-size: 1.5rem;
+        text-align: center;
+        margin-bottom: 50px;
+        text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+    }
+    </style>
     """
     st.markdown(marketing_bg, unsafe_allow_html=True)
     
@@ -195,68 +157,66 @@ elif page == "Hệ Thống Nhận Diện":
     html, body, [class*="css"] {
         font-family: 'Montserrat', sans-serif;
     }
-    <style>
-    <style>
     .stApp {
-    background-color: #3D0B0A; /* Nền đỏ sẫm trầm, giống phần trên của ảnh */
-}
+        background-color: #FFFDF9;
+    }
     .st-emotion-cache-1jicfl2 {
-    padding: 2rem 3rem;
-}
+        padding: 2rem 3rem;
+    }
     .step-banner {
-    background: linear-gradient(135deg, #B22222 0%, #D4AF37 100%); /* Đỏ sắt rỉ sang Vàng đồng */
-    color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 1.2rem;
-    margin-bottom: 15px;
-    margin-top: 25px;
-    box-shadow: 0 4px 6px rgba(178, 34, 34, 0.2); /* Bóng màu đỏ sắt rỉ */
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        background: linear-gradient(135deg, #FF7E5F 0%, #FEB47B 100%);
+        color: white;
+        padding: 12px 20px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1.2rem;
+        margin-bottom: 15px;
+        margin-top: 25px;
+        box-shadow: 0 4px 6px rgba(255, 126, 95, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
     [data-testid="stFileUploadDropzone"] {
-    background-color: #ffffff !important;
-    border: 2px dashed #B22222 !important; /* Viền màu đỏ sắt rỉ */
-    border-radius: 12px !important;
-}
+        background-color: #ffffff !important;
+        border: 2px dashed #FF7E5F !important;
+        border-radius: 12px !important;
+    }
     [data-testid="stFileUploadDropzone"] div {
-    color: #D4AF37 !important; /* Văn bản màu vàng đồng */
-}
+        color: #2C3E50 !important;
+    }
     .stRadio label, .stRadio p {
-    font-weight: 600 !important;
-    color: #D4AF37 !important; /* Văn bản màu vàng đồng */
-}
+        font-weight: 600 !important;
+        color: #2C3E50 !important;
+    }
     .receipt-container {
-    background-color: #FDE6A6; /* Nền vàng đồng nhạt hơn, để văn bản dễ đọc */
-    border: 2px dashed #B22222; /* Viền màu đỏ sắt rỉ */
-    border-radius: 10px;
-    padding: 5px;
-    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
-}
+        background-color: #FEF9E7;
+        border: 2px dashed #F39C12;
+        border-radius: 10px;
+        padding: 5px;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+    }
     h1 {
-    color: #D4AF37 !important; /* Tiêu đề màu vàng đồng */
-    text-align: center;
-    font-weight: 800 !important;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
+        color: #D35400 !important;
+        text-align: center;
+        font-weight: 800 !important;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
     .subtitle-text {
-    text-align: center;
-    font-size: 1.1rem;
-    color: #D4AF37; /* Văn bản phụ màu vàng đồng */
-    margin-bottom: 30px;
-}
+        text-align: center;
+        font-size: 1.1rem;
+        color: #7F8C8D;
+        margin-bottom: 30px;
+    }
     .food-label {
-    text-align: center;
-    font-weight: 700;
-    color: #D4AF37; /* Nhãn màu vàng đồng */
-    margin-top: 10px;
-    margin-bottom: 5px;
-    font-size: 1.1rem;
-}
+        text-align: center;
+        font-weight: 700;
+        color: #2C3E50;
+        margin-top: 10px;
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+    }
     </style>
     """
     st.markdown(app_bg, unsafe_allow_html=True)
@@ -457,3 +417,4 @@ elif page == "Góc Ẩm Thực AI":
 
     st.write("---")
     st.info("💡 *Mẹo nhỏ từ AI:* Bộ đôi Combo bất bại của dân văn phòng: **Sườn cốt lết nướng** kết hợp cùng **Canh chua dọc mùng** sẽ mang lại nguồn năng lượng tối đa!")
+
