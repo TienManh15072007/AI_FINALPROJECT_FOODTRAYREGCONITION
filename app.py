@@ -374,7 +374,7 @@ elif page == "Góc Ẩm Thực AI":
             "name": "Sườn cốt lết nướng", 
             "desc": "Sườn cốt lết được đập mềm, ướp sả mật ong nướng vàng xém cạnh, chuẩn vị cơm tấm văn phòng.", 
             "appeal": "⭐⭐⭐⭐⭐ (Siêu hấp dẫn)",
-            "image": "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "image": "https://i.ytimg.com/vi/picf2oCcsb0/maxresdefault.jpg"
         },
         {
             "name": "Thịt kho tàu (Thịt kho trứng)", 
