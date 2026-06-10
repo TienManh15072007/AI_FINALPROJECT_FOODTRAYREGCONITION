@@ -109,30 +109,115 @@ if page == "Trang Chủ (Giới thiệu)":
     html, body, [class*="css"] {
         font-family: 'Montserrat', sans-serif;
     }
-    .stApp {
-        background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url("https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80");
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-    }
-    h1, h2, h3, p, span, div {
-        color: white !important;
-    }
-    .main-title {
-        font-size: 3.5rem;
-        font-weight: 800;
-        text-align: center;
-        margin-top: 15vh;
-        color: #F39C12 !important;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
-    }
-    .sub-title {
-        font-size: 1.5rem;
-        text-align: center;
-        margin-bottom: 50px;
-        text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-    }
-    </style>
+    <style>
+
+/* =========================
+   NỀN CHÍNH TOÀN APP
+   ========================= */
+    html, body, [data-testid="stAppViewContainer"], .stApp {
+    background: #3D0B0A !important;
+    color: #F5E6C8;
+}
+
+/* Container chính */
+    .main .block-container {
+    background: transparent !important;
+    padding-top: 2rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+}
+
+/* Sidebar */
+    [data-testid="stSidebar"] {
+    background: #2B0808 !important;
+}
+
+/* =========================
+   STEP BANNER
+   ========================= */
+    .step-banner {
+    background: linear-gradient(135deg, #B22222 0%, #D4AF37 100%);
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    margin-top: 25px;
+    box-shadow: 0 4px 6px rgba(178,34,34,0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+}
+
+/* =========================
+   FILE UPLOADER
+   ========================= */
+    [data-testid="stFileUploadDropzone"] {
+    background-color: #FFFFFF !important;
+    border: 2px dashed #B22222 !important;
+    border-radius: 12px !important;
+}
+
+    [data-testid="stFileUploadDropzone"] div {
+    color: #D4AF37 !important;
+}
+
+/* =========================
+   RADIO BUTTON
+   ========================= */
+    .stRadio label,
+    .stRadio p {
+    font-weight: 600 !important;
+    color: #D4AF37 !important;
+}
+
+/* =========================
+   RECEIPT
+   ========================= */
+    .receipt-container {
+    background-color: #FDE6A6;
+    border: 2px dashed #B22222;
+    border-radius: 10px;
+    padding: 5px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* =========================
+   TIÊU ĐỀ
+   ========================= */
+    h1 {
+    color: #D4AF37 !important;
+    text-align: center;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+    .subtitle-text {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #D4AF37;
+    margin-bottom: 30px;
+}
+
+    .food-label {
+    text-align: center;
+    font-weight: 700;
+    color: #D4AF37;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    font-size: 1.1rem;
+}
+
+/* =========================
+   TEXT MẶC ĐỊNH
+   ========================= */
+    p, span, label, div {
+    color: #F5E6C8;
+}
+
+</style>
     """
     st.markdown(marketing_bg, unsafe_allow_html=True)
     
