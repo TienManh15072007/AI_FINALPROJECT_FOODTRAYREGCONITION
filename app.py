@@ -343,43 +343,61 @@ elif page == "Hệ Thống Nhận Diện":
             st.info("\n\n".join(ai_messages))
 
 # ------------------------------------------
-# TRANG 3: GÓC ẨM THỰC AI (ĐÃ CẬP NHẬT ẢNH CHI TIẾT)
+# TRANG 3: GÓC ẨM THỰC AI (ĐÃ HOÀN THIỆN ẢNH VIỆT NAM & HIỆU ỨNG PHÁT SÁNG)
 # ------------------------------------------
 elif page == "Góc Ẩm Thực AI":
+    # CSS Custom tạo hiệu ứng phát sáng Neon chuyển màu lung linh cho thẻ món ăn
+    glow_css = """
+    <style>
+    [data-testid="stVVerticalBlock"] > div:has(div.stElementContainer) {
+        transition: all 0.3s ease-in-out;
+    }
+    /* Áp dụng hiệu ứng viền phát sáng viễn tưởng cho các Container món ăn */
+    .stElementContainer:has(.food-card-glow) {
+        border-radius: 12px;
+        box-shadow: 0 0 15px rgba(255, 126, 95, 0.5), inset 0 0 10px rgba(254, 180, 123, 0.2);
+        border: 1px solid rgba(255, 126, 95, 0.4);
+        padding: 10px;
+        background: #ffffff;
+    }
+    </style>
+    """
+    st.markdown(glow_css, unsafe_allow_html=True)
+
     st.markdown("<h1>✨ GÓC GỢI Ý MÓN NGON TỪ AI</h1>", unsafe_allow_html=True)
-    st.markdown("<p style='text-align:center;'>Để AI giúp bạn chọn một bữa ăn đầy đủ dinh dưỡng và hấp dẫn nhất hôm nay!</p>", unsafe_allow_html=True)
+    st.markdown("<p style='text-align:center;'>Để AI giúp bạn chọn một bữa ăn đầy đủ dinh dưỡng và đậm đà bản sắc cơm Việt hôm nay!</p>", unsafe_allow_html=True)
     st.write("---")
 
-    # Dữ liệu gợi ý món ăn tích hợp link hình ảnh trực tuyến chất lượng cao
+    # Dữ liệu hình ảnh được thay đổi chính xác sang phong cách Cơm Văn Phòng / Cơm Bình Dân Việt Nam
     suggestions = [
         {
-            "name": "Sườn nướng", 
-            "desc": "Sườn nướng mật ong thơm phức, thịt mềm tan trong miệng.", 
+            "name": "Sườn cốt lết nướng", 
+            "desc": "Sườn cốt lết được đập mềm, ướp sả mật ong nướng vàng xém cạnh, chuẩn vị cơm tấm văn phòng.", 
             "appeal": "⭐⭐⭐⭐⭐ (Siêu hấp dẫn)",
-            "image": "https://images.unsplash.com/photo-1544025162-d76694265947?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "image": "https://images.unsplash.com/photo-1625220194771-7ebdea0b70b9?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
         },
         {
-            "name": "Thịt kho trứng", 
-            "desc": "Món ăn quốc dân, đậm đà ăn cùng cơm trắng là hết sảy.", 
+            "name": "Thịt kho tàu (Thịt kho trứng)", 
+            "desc": "Thịt ba chỉ vuông vức kho r rục cùng hột vịt, nước kho dừa màu cánh gián đậm đà đưa cơm.", 
             "appeal": "⭐⭐⭐⭐⭐ (Khó cưỡng)",
-            "image": "https://images.unsplash.com/photo-1598514983318-2f64f8f4796c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "image": "https://images.unsplash.com/photo-1543339308-43e59d6b73a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
         },
         {
-            "name": "Cá hú kho", 
-            "desc": "Vị béo của cá hú quyện cùng tiêu cay, cực kỳ bắt cơm.", 
-            "appeal": "⭐⭐⭐⭐ (Đậm đà)",
-            "image": "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "name": "Cá hú kho tộ", 
+            "desc": "Khúc cá hú béo ngậy được kho kẹo trong tộ đất với tóp mỡ, hành lá và tiêu sọ cay nồng.", 
+            "appeal": "⭐⭐⭐⭐ (Đậm đà dân dã)",
+            "image": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
         },
         {
-            "name": "Trứng chiên", 
-            "desc": "Đơn giản nhưng luôn là món 'chữa cháy' tuyệt vời.", 
-            "appeal": "⭐⭐⭐ (Nhanh gọn)",
-            "image": "https://images.unsplash.com/photo-1525351484163-7529414344d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
+            "name": "Trứng chiên hành kiểu quán cơm", 
+            "desc": "Trứng vịt đánh bông chiên dày hành thơm phức, ngoài rìa xém giòn, bên trong mềm xốp.", 
+            "appeal": "⭐⭐⭐ (Nhanh gọn, bắt miệng)",
+            "image": "https://images.unsplash.com/photo-1513456852971-30c0b8199d4d?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
         },
         {
-            "name": "Canh chua", 
-            "desc": "Thanh mát, giải nhiệt cho một ngày dài làm việc.", 
-            "appeal": "⭐⭐⭐⭐ (Sảng khoái)",
+            "name": "Canh chua dọc mùng Nam Bộ", 
+            "desc": "Nước canh chua thanh nhẹ từ me, nấu kèm dọc mùng (bạc hà), đậu bắp, cà chua và giá đỗ chuẩn vị cơm bình dân.", 
+            "appeal": "⭐⭐⭐⭐ (Giải nhiệt sảng khoái)",
             "image": "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80"
         }
     ]
@@ -387,14 +405,15 @@ elif page == "Góc Ẩm Thực AI":
     col1, col2 = st.columns(2)
     for i, item in enumerate(suggestions):
         with (col1 if i % 2 == 0 else col2):
+            # Tạo khối container có class định danh để nhận hiệu ứng phát sáng CSS ở trên
             with st.container(border=True):
-                # Hiển thị hình ảnh của từng món ăn cụ thể
-                st.image(item["image"], use_container_width=True, caption=f"Hình ảnh minh họa: {item['name']}")
+                st.markdown("<div class='food-card-glow'></div>", unsafe_allow_html=True)
+                st.image(item["image"], use_container_width=True, caption=f"Món ăn thực tế: {item['name']}")
                 st.subheader(item["name"])
                 st.write(item["desc"])
-                st.caption(f"*Độ hấp dẫn:* {item['appeal']}")
-                if st.button(f"Chọn {item['name']}", key=f"btn_{i}"):
-                    st.success(f"Đã ghi chú! Hôm nay bạn sẽ ăn {item['name']} nhé!")
+                st.caption(f"*Đánh giá từ AI:* {item['appeal']}")
+                if st.button(f"Chọn {item['name']}", key=f"btn_{i}", use_container_width=True):
+                    st.success(f"Đã ghi chú! AI hệ thống đã thêm {item['name']} vào thực đơn lý tưởng của bạn.")
 
     st.write("---")
-    st.info("💡 *Mẹo nhỏ:* Bạn có thể kết hợp Sườn nướng + Canh chua để có một bữa ăn chuẩn vị Canteen AI!")
+    st.info("💡 *Mẹo nhỏ từ AI:* Bộ đôi Combo bất bại của dân văn phòng: **Sườn cốt lết nướng** kết hợp cùng **Canh chua dọc mùng** sẽ mang lại nguồn năng lượng tối đa!")
