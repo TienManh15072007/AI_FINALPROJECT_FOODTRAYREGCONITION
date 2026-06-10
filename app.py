@@ -1,12 +1,3 @@
-Aha, mình hiểu rồi! Đoạn code Gradio này của bạn xử lý việc căn lề (auto_align) và cắt ảnh theo tỷ lệ phần trăm rất thông minh và linh hoạt. Đó chính là lý do hôm qua nó nhận diện mượt mà bất chấp góc chụp!
-
-Để giải quyết triệt để lỗi đồng bộ file và giữ nguyên được giao diện Streamlit tuyệt đẹp mà bạn đã thiết kế, mình đã hợp nhất toàn bộ logic xử lý ảnh và tính tiền từ code Gradio vào thẳng một file app.py duy nhất.
-
-Bạn sẽ không cần đến các file image_processor.py, model.py hay billing.py nữa. Chỉ cần đúng một file app.py này là hệ thống chạy hoàn hảo.
-
-Dưới đây là toàn bộ mã nguồn mới nhất. Bạn hãy copy toàn bộ, ghi đè vào file app.py trên GitHub nhé:
-
-Python
 import os
 import requests
 import streamlit as st
