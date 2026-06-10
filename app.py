@@ -339,28 +339,23 @@ elif page == "Hệ Thống Nhận Diện":
                 st.balloons()
     else:
         st.info("👋 Chào mừng đến với khu vực Thu Ngân! Vui lòng tải ảnh khay ăn lên hệ thống để bắt đầu quét tự động.")
-# Thêm biến lưu danh sách message AI trước khi in ra
-ai_messages = [] 
-
-# ... (Trong vòng lặp for idx, (region_name, region_img) in enumerate(regions.items()): )
-    
-    # ... [Code cũ nhận diện xong]
-    
-    # CẢI TIẾN: Thêm hiệu ứng "AI Thinking" nhẹ
-    with st.empty():
-        st.write(f"🔍 AI đang quét ngăn {region_name}...")
-        time.sleep(0.3) 
-    
-    # AI Co-pilot phát biểu
-    if confidence > 80:
-        msg = f"✅ [Co-pilot]: Tự tin xác nhận món {food_name}. Cấu trúc nguyên liệu khớp hoàn hảo."
-    elif confidence > 60:
-        msg = f"⚠️ [Co-pilot]: Phát hiện dấu hiệu của {food_name}. Đang đối chiếu dữ liệu hình ảnh..."
-    else:
-        msg = f"❌ [Co-pilot]: Dữ liệu hình ảnh tại ngăn {region_name} chưa đủ rõ nét. Vui lòng kiểm tra lại."
-    ai_messages.append(msg)
-
-# ... [Sau vòng lặp for, hiển thị bảng Co-pilot Console]
-st.markdown("<div class='cyber-banner'>🤖 AI CO-PILOT CONSOLE</div>", unsafe_allow_html=True)
-with st.container():
-    st.info("\n".join(ai_messages))
+ai_messages = []
+        cols = st.columns(5)
+        total_bill = 0
+        for i, (name, region_img) in enumerate(regions.items()):
+            with cols[i]:
+                img_batch = preprocess_input(np.expand_dims(cv2.resize(region_img, (224, 224)), axis=0).astype('float32'))
+                pred = model.predict(img_batch, verbose=0)
+                conf = np.max(pred) * 100
+                st.image(region_img, use_container_width=True)
+                st.progress(int(conf))
+                food_name = CLASS_NAMES[np.argmax(pred)]
+                st.write(f"**{food_name}**")
+                total_bill += PRICE_MAP[food_name]
+                # AI Co-pilot Log
+                msg = f"🛰️ [Co-pilot]: Phát hiện {food_name} tại {name}, độ tin cậy {conf:.1f}%."
+                ai_messages.append(msg)
+        
+        st.markdown("### 🤖 AI CO-PILOT CONSOLE")
+        st.info("\n".join(ai_messages))
+        st.metric("TỔNG TIỀN", f"{total_bill:,} VNĐ")
