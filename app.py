@@ -248,4 +248,4 @@ if uploaded_file is not None:
             st.toast("✅ Đã ghi nhận thanh toán thành công!")
             st.balloons()
 else:
-    st.info("👋 Xin chào! Vui lòng tải lên một bức ảnh khay cơm ở mục số 1 để hệ thống bắt đầu")
+    st.info("👋 Xin chào! Vui lòng tải lên một bức ảnh khay cơm ở mục số 1 để hệ thống bắt đầu làm việc")
