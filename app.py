@@ -172,9 +172,9 @@ elif page == "Hệ Thống Nhận Diện":
     [data-testid="stFileUploadDropzone"] div {
         color: #2C3E50 !important;
     }
-    .stRadio label {
-        font-weight: 600;
-        color: #34495E;
+    .stRadio label, .stRadio p {
+        font-weight: 600 !important;
+        color: #2C3E50 !important;
     }
     .receipt-container {
         background-color: #FEF9E7;
