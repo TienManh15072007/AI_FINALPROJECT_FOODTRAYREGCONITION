@@ -48,7 +48,7 @@ CLASS_NAMES = [
 @st.cache_resource
 def init_model():
     model_path = "canteen_model_STAGE1.keras"
-    model_url = "https://github.com/TienManh15072007/AI_FINALPROJECT_FOODTRAYREGCONITION/releases/download/v1.0/canteen_model_STAGE1.keras"
+    model_url = "https://github.com/TienManh15072007/AI_FINALPROJECT_FOODTRAYREGCONITION/releases/download/model.py/canteen_model_STAGE2_latest.keras"
     
     if not os.path.exists(model_path):
         response = requests.get(model_url, stream=True)
