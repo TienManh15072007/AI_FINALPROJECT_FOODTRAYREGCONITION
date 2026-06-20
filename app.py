@@ -385,7 +385,7 @@ elif page == "Góc Ẩm Thực AI":
             "name": "Thịt kho tàu (Thịt kho trứng)", 
             "desc": "Thịt ba chỉ vuông vức kho r rục cùng hột vịt, nước kho dừa màu cánh gián đậm đà đưa cơm.", 
             "appeal": "⭐⭐⭐⭐⭐ (Khó cưỡng)",
-            "image": "https://cdn.nguyenkimmall.com/images/companies/_1/tin-tuc/kinh-nghiem-meo-hay/n%E1%BA%A5u%20%C4%83n/thit-kho-tau-voi-trung-thom-ngon.jpg"
+            "image": "https://images.search.yahoo.com/search/images;_ylt=Awr1Smr6_jVqTgIAOjOJzbkF;_ylu=Y29sbwNzZzMEcG9zAzM2BHZ0aWQDBHNlYwNzcg--?fr=mcafee&p=th%E1%BB%8Bt+kho+tr%E1%BB%A9ng&imgurl=https%3A%2F%2F2monngonmoingay.com%2Fwp-content%2Fuploads%2F2022%2F07%2Fmuon-thit-kho-tau-ngon-hoan-hao-dung-bo-qua-5-bi-quyet-nay-202202141320249940-1.jpg"
         },
         {
             "name": "Cá kho", 
