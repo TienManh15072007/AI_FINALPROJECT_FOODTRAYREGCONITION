@@ -232,8 +232,10 @@ elif page == "Hệ Thống Nhận Diện":
     col_input, col_preview = st.columns([1.2, 1], gap="large")
 
     with col_input:
-        st.markdown("<div class='step-banner'>📸 BƯỚC 1: TẢI ẢNH KHAY CƠM</div>", unsafe_allow_html=True)
-        uploaded_file = st.file_uploader("Kéo thả ảnh hoặc chọn từ thiết bị (Hỗ trợ: jpg, png)", type=["jpg", "jpeg", "png"])
+        st.markdown("<div class='step-banner'>📸 BƯỚC 1: TẢI HOẶC CHỤP ẢNH KHAY CƠM</div>", unsafe_allow_html=True)
+        # THÊM WIDGET CAMERA
+        camera_file = st.camera_input("Chụp ảnh trực tiếp từ Camera")
+        uploaded_file = st.file_uploader("Hoặc kéo thả ảnh/chọn từ thiết bị (Hỗ trợ: jpg, png)", type=["jpg", "jpeg", "png"])
         
         st.markdown("<div class='step-banner'>🔄 BƯỚC 2: TÙY CHỈNH GÓC NHÌN</div>", unsafe_allow_html=True)
         rotation_mode = st.radio(
@@ -242,8 +244,11 @@ elif page == "Hệ Thống Nhận Diện":
             horizontal=True
         )
 
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file).convert('RGB')
+    # Ưu tiên sử dụng ảnh chụp từ camera nếu có, ngược lại dùng ảnh upload
+    active_file = camera_file if camera_file is not None else uploaded_file
+
+    if active_file is not None:
+        image = Image.open(active_file).convert('RGB')
         img_array = np.array(image)
 
         with col_preview:
@@ -417,4 +422,3 @@ elif page == "Góc Ẩm Thực AI":
 
     st.write("---")
     st.info("💡 *Mẹo nhỏ từ AI:* Bộ đôi Combo bất bại của dân văn phòng: **Sườn cốt lết nướng** kết hợp cùng **Canh chua dọc mùng** sẽ mang lại nguồn năng lượng tối đa!")
-
